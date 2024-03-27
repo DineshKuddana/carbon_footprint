@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+    <style>
+        body {
+            background-color: rgb(237, 231, 231);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        } 
+
+        h1 {
+            text-align: center;
+            margin-top: 50px;
+            color: #333;
+        }
+
+        .container {
+            width: 50%;
+            margin: 0 auto;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Carbon Footprint Calculator</h1>
+    <div class="container">
+        <form id="carbon-footprint-form">
+            <label for="electricity-usage">Monthly Fuel Usage (kWh):</label>
+            <input type="number" id="electricity-usage" name="electricity-usage" required><br><br>
+
+            <label for="transportation-method">Primary Transportation Method:</label>
+            <select id="transportation-method" name="transportation-method">
+                <option value="car">Car</option>
+                <option value="bus">Bus</option>
+                <option value="train">Train</option>
+                <option value="bicycle">Bicycle</option>
+                <option value="walking">Walking</option>
+            </select><br><br>
+
+            <label for="waste-production">Monthly Waste Production (kg):</label>
+            <input type="number" id="waste-production" name="waste-production" required><br><br>
+
+            <button type="button" onclick="calculateCarbonFootprint()">Calculate</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateCarbonFootprint() {
+            var electricityUsage = parseFloat(document.getElementById("electricity-usage").value);
+            var transportationMethod = document.getElementById("transportation-method").value;
+            var wasteProduction = parseFloat(document.getElementById("waste-production").value);
+
+            // Constants for carbon emissions in kg CO2 equivalents per unit
+            var electricityEmissionFactor = 0.417;  // kg CO2 per kWh
+            var transportationEmissionFactors = {
+                "car": 0.2,     // kg CO2 per mile
+                "bus": 0.1,     // kg CO2 per mile
+                "train": 0.05,  // kg CO2 per mile
+                "bicycle": 0,   // Assume zero emissions for bicycle
+                "walking": 0    // Assume zero emissions for walking
+            };
+            var wasteEmissionFactor = 0.3;  // kg CO2 per kg of waste
+
+            // Calculate carbon footprint for each category
+            var electricityFootprint = electricityUsage * electricityEmissionFactor;
+            var transportationFootprint = transportationEmissionFactors[transportationMethod];
+            var wasteFootprint = wasteProduction * wasteEmissionFactor;
+
+            // Total carbon footprint
+            var totalFootprint = electricityFootprint + transportationFootprint + wasteFootprint;
+
+            document.getElementById("result").innerHTML = "Your estimated carbon footprint is: " + totalFootprint.toFixed(2) + " kg CO2 equivalent per month.";
+        }
+    </script>
+</body>
+
+</html>
