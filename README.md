@@ -1,0 +1,2 @@
+# carbon_footprint
+Apologies for the oversight. Here are your lines without mistakes:  A small user interface developed on a sustainable living platform to reduce the carbon footprint. This was developed in a 24-hour Hackathon at Cynosure 2k24 at SVU Tirupathi.
